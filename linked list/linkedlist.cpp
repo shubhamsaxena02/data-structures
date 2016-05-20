@@ -57,6 +57,40 @@ void insert_begin(node **ll,int value){
 }
 
 
+void delete_end(node **ll){
+	if((*ll)==NULL)
+		return;
+	if((*ll)->next==NULL){
+		free((*ll));
+		(*ll)=NULL;
+		return;
+	}
+	node *cur=(*ll),*prev=NULL;
+	while(cur->next!=NULL){
+		prev=cur;
+		cur=cur->next;
+	}
+	free(cur);
+	cur=NULL;
+	prev->next=NULL;
+}
+
+
+void delete_begin(node **ll){
+	if((*ll)==NULL)
+		return;
+	if((*ll)->next==NULL){
+		free((*ll));
+		(*ll)=NULL;
+		return;
+	}
+	node *cur=(*ll)->next;
+	free((*ll));
+	(*ll)=cur;
+	return;
+}
+
+
 int main(){
 	node * ll=NULL;
 	insert_end(&ll,10);insert_end(&ll,20);insert_end(&ll,30);print_list(ll);insert_begin(&ll,40);insert_begin(&ll,50);insert_begin(&ll,60);print_list(ll);
@@ -85,9 +119,11 @@ int main(){
 				break;
 			case 3:
 				cout<<"Deleting from end"<<"\n";
+				delete_end(&ll);
 			 	break;
 			case 4:
 				cout<<"Deleting from begin"<<"\n";
+				delete_begin(&ll);
 				break;
 			case 0:
 				print_list(ll);
